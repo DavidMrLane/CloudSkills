@@ -1,3 +1,4 @@
 .DS_Store
-*/.terraform/providers/*
-DevOpsBootcamp/Week-3-IaC/AWS/modules/.terraform/providers/registry.terraform.io/hashicorp/aws/3.30.0/darwin_amd64/terraform-provider-aws_v3.30.0_x5
+terraform-provider*
+*.tfstate*
+.terraform.lock*
