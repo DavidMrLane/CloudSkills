@@ -36,7 +36,7 @@ jobs:
 
       - name: Setup storage for tfstate
         run: |
-          cd Week-5-CICD/terrform-ghactions
+          cd Week-5-CICD/terraform-ghactions
           chmod +x ./AWStfstate.sh
           ./AWStfstate.sh ${{ env.STORAGE}}
          
