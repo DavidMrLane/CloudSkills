@@ -34,14 +34,17 @@ jobs:
 
       #- name: Build Terraform state
       #    run: chmod +x ./tfstate.sh && ./tfstate.sh ${{ env.STORAGE}}
-         
+      - name: Setup storage for tfstate
+         run: |
+          aws s3api create-bucket --bucket "dlgithubterraform" --region eu-west-2 --create-bucket-configuration LocationConstraint=eu-west-2
+      
       - name: HashiCorp - Setup Terraform
         uses: hashicorp/setup-terraform@v1.2.1
        
       - name: Terraform Init
         run: |
           cd Week-3-IaC/AWS/modules
-          terraform init 
+          terraform init -backend-config="storage_account_name=http://dlgithubterraform.s3.amazonaws.com/"
 
       - name: Terraform Plan
         run: |
