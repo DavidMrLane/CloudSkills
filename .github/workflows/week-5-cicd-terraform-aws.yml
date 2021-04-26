@@ -38,7 +38,7 @@ jobs:
         run: |
           cd Week-5-CICD/terraform-ghactions
           chmod +x ./AWStfstate.sh
-          ./AWStfstate.sh ${{ env.STORAGE}}
+          ./AWStfstate.sh ${{ env.AWS-STORAGE}} ${{ env.AWS-REGION}}
          
       - name: HashiCorp - Setup Terraform
         uses: hashicorp/setup-terraform@v1.2.1
@@ -46,7 +46,7 @@ jobs:
       - name: Terraform Init
         run: |
           cd Week-3-IaC/AWS/modules
-          terraform init -backend-config="storage_account_name=http://${{ env.STORAGE}}.s3.amazonaws.com/"
+          terraform init -backend-config="storage_account_name=http://${{ env.AWS-STORAGE}}.s3.amazonaws.com/"
 
       - name: Terraform Plan
         run: |
