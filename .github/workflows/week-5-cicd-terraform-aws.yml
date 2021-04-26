@@ -35,7 +35,10 @@ jobs:
             aws-region: ${{ env.AWS-REGION}}
 
       - name: Setup storage for tfstate
-        run: chmod +x ./AWStfstate.sh && ./AWStfstate.sh ${{ env.STORAGE}}
+        run: |
+          cd Week-5-CICD/terrform-ghactions
+          chmod +x ./AWStfstate.sh
+          ./AWStfstate.sh ${{ env.STORAGE}}
          
       - name: HashiCorp - Setup Terraform
         uses: hashicorp/setup-terraform@v1.2.1
