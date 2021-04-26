@@ -51,4 +51,4 @@ jobs:
       - name: Terraform Apply
         run: |
             cd Week-3-IaC/AWS/modules
-            terrform apply   
+            terraform apply   
