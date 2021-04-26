@@ -44,4 +44,4 @@ jobs:
     - name: Publish Unit Test Results
       uses: EnricoMi/publish-unit-test-result-action@v1.12
       with:
-        files: ./testResults/results.xml
+        files: ./Week-5-CICD/ci-pythonapp/testResults/results.xml
