@@ -24,27 +24,27 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
-      
+          env:
+            AWS-STORAGE: dlgithubterraform
+            AWS-REGION: eu-west-2
+            
       - name: Configure AWS Credentials Action For GitHub Actions
         uses: aws-actions/configure-aws-credentials@v1
         with:
             aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
             aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-            aws-region: "eu-west-2"
+            aws-region: ${{ env.AWS-REGION}}
 
-      #- name: Build Terraform state
-      #    run: chmod +x ./tfstate.sh && ./tfstate.sh ${{ env.STORAGE}}
       - name: Setup storage for tfstate
-         run: |
-          aws s3api create-bucket --bucket "dlgithubterraform" --region eu-west-2 --create-bucket-configuration LocationConstraint=eu-west-2
-      
+         run: chmod +x ./AWStfstate.sh && ./AWStfstate.sh ${{ env.STORAGE}}
+         
       - name: HashiCorp - Setup Terraform
         uses: hashicorp/setup-terraform@v1.2.1
        
       - name: Terraform Init
         run: |
           cd Week-3-IaC/AWS/modules
-          terraform init -backend-config="storage_account_name=http://dlgithubterraform.s3.amazonaws.com/"
+          terraform init -backend-config="storage_account_name=http://${{ env.STORAGE}}.s3.amazonaws.com/"
 
       - name: Terraform Plan
         run: |
