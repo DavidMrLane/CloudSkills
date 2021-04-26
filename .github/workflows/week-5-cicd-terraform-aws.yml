@@ -41,12 +41,13 @@ jobs:
       - name: Terraform Init
         run: |
           cd Week-3-IaC/AWS
-          terrform init 
+          terraform init 
 
       - name: Terraform Plan
         run: |
             cd Week-3-IaC/AWS
             terraform plan
+            
       - name: Terraform Apply
         run: |
             cd Week-3-IaC/AWS
