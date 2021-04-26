@@ -18,6 +18,8 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
+    - name: change directory
+      run: cd Week-5-CICD/ci-pythonapp
     - name: Set up Python 3.9
       uses: actions/setup-python@v2
       with:
@@ -26,7 +28,7 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         pip install flake8 pytest
-        if [ -f Week-5-CICD/ci-pythonapp/Application/requirements.txt ]; then pip install -r Week-5-CICD/ci-pythonapp/Application/requirements.txt; fi
+        if [ -f Application/requirements.txt ]; then pip install -r Application/requirements.txt; fi
     - name: Lint with flake8
       run: |
         # stop the build if there are Python syntax errors or undefined names
@@ -35,8 +37,8 @@ jobs:
         flake8 Week-5-CICD/ci-pythonapp/. --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
     - name: Test with pytest
       run: |
-        mkdir Week-5-CICD/ci-pythonapp/testResults
-        pytest Week-5-CICD/ci-pythonapp/Tests/unit_tests --junitxml=Week-5-CICD/ci-pythonapp/testResults/results.xml
+        mkdir testResults
+        pytest Tests/unit_tests --junitxml=./testResults/results.xml
         
     - name: Publish Unit Test Results
       uses: EnricoMi/publish-unit-test-result-action@v1.12
