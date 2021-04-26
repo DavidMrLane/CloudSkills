@@ -19,14 +19,13 @@ jobs:
   build:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
-  
+    env:
+        AWS-STORAGE: dlgithubterraform
+        AWS-REGION: eu-west-2
   # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
-          env:
-            AWS-STORAGE: dlgithubterraform
-            AWS-REGION: eu-west-2
             
       - name: Configure AWS Credentials Action For GitHub Actions
         uses: aws-actions/configure-aws-credentials@v1
@@ -36,7 +35,7 @@ jobs:
             aws-region: ${{ env.AWS-REGION}}
 
       - name: Setup storage for tfstate
-         run: chmod +x ./AWStfstate.sh && ./AWStfstate.sh ${{ env.STORAGE}}
+        run: chmod +x ./AWStfstate.sh && ./AWStfstate.sh ${{ env.STORAGE}}
          
       - name: HashiCorp - Setup Terraform
         uses: hashicorp/setup-terraform@v1.2.1
