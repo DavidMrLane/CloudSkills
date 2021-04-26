@@ -46,9 +46,9 @@ jobs:
       - name: Terraform Plan
         run: |
             cd Week-3-IaC/AWS/modules
-            terraform plan
+            terraform plan -out=tfplan
             
       - name: Terraform Apply
         run: |
             cd Week-3-IaC/AWS/modules
-            terraform apply   
+            terraform apply tfplan
