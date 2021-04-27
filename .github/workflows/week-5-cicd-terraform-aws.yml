@@ -45,7 +45,7 @@ jobs:
         with: 
           cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
 
-            - name: Terraform Format
+      - name: Terraform Format
         id: fmt
         run: |
           cd Week-3-IaC/AWS/modules
