@@ -22,6 +22,7 @@ jobs:
     env:
         AWS-STORAGE: dlgithubterraform
         AWS-REGION: eu-west-2
+        PROJECT-FOLDER: Week-3-IaC/AWS/modules
   # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
@@ -54,14 +55,14 @@ jobs:
       - name: Terraform Init
         id: init
         run: |
-          cd Week-3-IaC/AWS/modules
+          cd ${{ env.PROJECT-FOLDER}}
           terraform init
 
       - name: Terraform Plan
         id: plan
         if: github.event_name == 'pull_request'
         run: |
-          cd Week-3-IaC/AWS/modules
+          cd ${{ env.PROJECT-FOLDER}}
           terraform plan -no-color
         continue-on-error: true
 
@@ -72,6 +73,7 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
+            cd ${{ env.PROJECT-FOLDER}}
             const output = `#### Terraform Format and Style 🖌\`${{ steps.fmt.outcome }}\`
             #### Terraform Initialization ⚙️\`${{ steps.init.outcome }}\`
             #### Terraform Plan 📖\`${{ steps.plan.outcome }}\`
@@ -93,5 +95,5 @@ jobs:
       - name: Terraform Apply
         if: github.ref == 'refs/heads/master' && github.event_name == 'push'
         run: |
-          cd Week-3-IaC/AWS/modules
+          cd ${{ env.PROJECT-FOLDER}}
           terraform apply -auto-approve 
