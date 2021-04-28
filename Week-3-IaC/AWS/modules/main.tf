@@ -9,20 +9,19 @@ terraform {
       version = "3.0.1"
     }
   }
-}
+  backend "remote" {
+      organization = "DavidMrLane"
 
+      workspaces {
+        name = "CloudSkills-DevOpsBootcamp"
+      }
+    }
+}
 # Configure the AWS Provider
 provider "aws" {
   region = "eu-west-2"
 }
 
-backend "remote" {
-    organization = "DavidMrLane"
-
-    workspaces {
-      name = "CloudSkills-DevOpsBootcamp"
-    }
-  }
 
 module "webserver" {
     source = "./ec2"
